@@ -15,17 +15,16 @@ const DateForm = ({ token }) => {
 	const [disabled, setDisabled] = useState(true)
 
 	useEffect(() => {
-		const today = new Date()
+		const today = new Intl.DateTimeFormat('ja-JP', {year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit", timeZone: "Asia/Tokyo"}).format(new Date())
 
-		const defaultStartDate = today.toISOString().split('T')[0]
-		const defaultEndDate = today.toISOString().split('T')[0]
-		const defaultStartTime = today.toISOString().split('T')[1].split('Z')[0]
-		const defaultEndTime = today.toISOString().split('T')[1].split('Z')[0]
+		console.log(today.split(' ')[0].replaceAll('/', '-'))
+		const defaultDate = today.split(' ')[0].replaceAll('/', '-');
+		const defaultTime = `${today.split(' ')[1]}.000`
 
-		setStart(defaultStartDate)
-		setEnd(defaultEndDate)
-		setStartTime(defaultStartTime)
-		setEndTime(defaultEndTime)
+		setStart(defaultDate)
+		setEnd(defaultDate)
+		setStartTime(defaultTime)
+		setEndTime(defaultTime)
 	}, [])
 
 	useEffect(() => {
