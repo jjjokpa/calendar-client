@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import env from 'react-dotenv'
 
 const LoginForm = ({ onLogin }) => {
 	useEffect(()=>{
@@ -12,7 +13,7 @@ const LoginForm = ({ onLogin }) => {
 
 	return (
 		<div>
-			<a href='http://localhost:3001/google'>ログインしてください。</a>
+			<a href={`${env.SERVER_URL}/google`}>ログインしてください。</a>
 		</div>
 	)
 }

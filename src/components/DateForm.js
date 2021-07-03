@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import env from 'react-dotenv'
 
 const DateForm = ({ token }) => {
 	const [title, setTitle] = useState('')
@@ -34,7 +35,7 @@ const DateForm = ({ token }) => {
 			token
 		}
 
-		fetch('http://localhost:3001/send-event', {
+		fetch(`${env.BASE_URL}/send-event`, {
 			method: 'POST',
 			mode: 'cors',
 			headers: {
