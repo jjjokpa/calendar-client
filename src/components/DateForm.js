@@ -34,7 +34,7 @@ const DateForm = ({ token }) => {
 			token
 		}
 
-		fetch(`${process.env.REACT_APP_BASE_URL}/send-event`, {
+		fetch(`${process.env.REACT_APP_SERVER_URL}/send-event`, {
 			method: 'POST',
 			mode: 'cors',
 			headers: {
