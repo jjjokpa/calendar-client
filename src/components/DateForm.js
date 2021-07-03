@@ -99,33 +99,40 @@ const DateForm = ({ token }) => {
 	return (
 		<div className='container'>
 			<form onSubmit={onSubmitHandler}>
-				<label htmlFor='title' >タイトル</label>
-				<hr />
-				<input disabled={disabled} onChange={onTitleChangeHandler} id='title' value={title} type='text' />
-				<label htmlFor='address'>場所</label>
+				<div>
+					<label className='inline-label' htmlFor='title' >タイトル</label>
+					<input disabled={disabled} onChange={onTitleChangeHandler} id='title' value={title} type='text' />
+				</div>
 
-				<hr />
-				<input disabled={disabled} onChange={onAddressChangeHandler} id='address' value={address} type='text' />
+				<div>
+					<label className='inline-label' htmlFor='address'>場所</label>
+					<input disabled={disabled} onChange={onAddressChangeHandler} id='address' value={address} type='text' />
+				</div>
 
-				<label htmlFor='description'>詳細</label>
-				<hr />
-				<input disabled={disabled} onChange={onDescriptionChangeHandler} id='description' value={description} type='text' />
+				<div>
+					<label className='inline-label' htmlFor='description'>詳細</label>
+					<input disabled={disabled} onChange={onDescriptionChangeHandler} id='description' value={description} type='text' />
+				</div>
 
-				<label htmlFor='start'>開始</label>
-				<hr />
-				<input disabled={disabled} onChange={onStartChangeHandler} id='start' value={start} type='date' />
+				<div>
+					<label className='inline-label' htmlFor='start'>開始</label>
+					<input disabled={disabled} onChange={onStartChangeHandler} id='start' value={start} type='date' />
+				</div>
 
-				<label htmlFor='startTime'>開始時間</label>
-				<hr />
-				<input disabled={disabled} onChange={onStartTimeChangeHandler} id='startTime' value={startTime} type='time' />
+				<div>
+					<label className='inline-label' htmlFor='startTime'>開始時間</label>
+					<input disabled={disabled} onChange={onStartTimeChangeHandler} id='startTime' value={startTime} type='time' />
+				</div>
 
-				<label htmlFor='end'>終了</label>
+				<div>
+					<label className='inline-label' htmlFor='end'>終了</label>
+					<input disabled={disabled} onChange={onEndChangeHandler} id='end' value={end} type='date' />
+				</div>
+				<div>
+					<label className='inline-label' htmlFor='endTime'>終了時間</label>
+					<input disabled={disabled} onChange={onEndTimeChangeHandler} id='endTime' value={endTime} type='time' />
+				</div>
 				<hr />
-				<input disabled={disabled} onChange={onEndChangeHandler} id='end' value={end} type='date' />
-
-				<label htmlFor='endTime'>終了時間</label>
-				<hr />
-				<input disabled={disabled} onChange={onEndTimeChangeHandler} id='endTime' value={endTime} type='time' />
 
 				{message.trim().length > 0 &&
 					<h3 style={
@@ -135,7 +142,9 @@ const DateForm = ({ token }) => {
 						{message}</h3>}
 
 				<br />
-				<button type='submit'>登録する</button>
+				<div className='button-section'>
+					<button className='button' type='submit'>登録する</button>
+				</div>
 			</form>
 		</div>
 	)
