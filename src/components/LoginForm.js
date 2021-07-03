@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import './LoginForm.css'
 
 const loginUrl = `${process.env.REACT_APP_SERVER_URL}/google`
 const LoginForm = ({ onLogin }) => {
@@ -13,8 +14,8 @@ const LoginForm = ({ onLogin }) => {
 	}, [search, onLogin])
 
 	return (
-		<div>
-			<a href={loginUrl}>ログインしてください。</a>
+		<div className='login-button-section'>
+			<a className='button' href={loginUrl}>Googleにログインしてください。</a>
 		</div>
 	)
 }

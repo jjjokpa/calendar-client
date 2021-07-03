@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import './DateForm.css'
 
 const DateForm = ({ token }) => {
 	const [title, setTitle] = useState('')
@@ -12,6 +13,20 @@ const DateForm = ({ token }) => {
 	const [message, setMessage] = useState('')
 
 	const [disabled, setDisabled] = useState(true)
+
+	useEffect(() => {
+		const today = new Date()
+
+		const defaultStartDate = today.toISOString().split('T')[0]
+		const defaultEndDate = today.toISOString().split('T')[0]
+		const defaultStartTime = today.toISOString().split('T')[1].split('Z')[0]
+		const defaultEndTime = today.toISOString().split('T')[1].split('Z')[0]
+
+		setStart(defaultStartDate)
+		setEnd(defaultEndDate)
+		setStartTime(defaultStartTime)
+		setEndTime(defaultEndTime)
+	}, [])
 
 	useEffect(() => {
 		if (token.trim().length > 0) {
@@ -52,18 +67,6 @@ const DateForm = ({ token }) => {
 					setMessage(data.message)
 				}
 			})
-		// 	if (data.status === 200) {
-		// 		setSuccess(true)
-		// 	} else {
-		// 		setSuccess(false)
-		// 	}
-		// }).then(res => res.text())
-		// 	.then((message) => {
-		// 		setMessage(message)
-		// 	})
-		// 	.catch((err) => {
-		// 		console.log(err)
-		// 	})
 	}
 
 	const onTitleChangeHandler = (e) => {
@@ -94,34 +97,35 @@ const DateForm = ({ token }) => {
 	}
 
 	return (
-		<>
+		<div className='container'>
 			<form onSubmit={onSubmitHandler}>
 				<label htmlFor='title' >タイトル</label>
+				<hr />
 				<input disabled={disabled} onChange={onTitleChangeHandler} id='title' value={title} type='text' />
-				<br />
-				<label htmlFor='address'>住所</label>
+				<label htmlFor='address'>場所</label>
+
+				<hr />
 				<input disabled={disabled} onChange={onAddressChangeHandler} id='address' value={address} type='text' />
 
-				<br />
-				<label htmlFor='description'>説明</label>
+				<label htmlFor='description'>詳細</label>
+				<hr />
 				<input disabled={disabled} onChange={onDescriptionChangeHandler} id='description' value={description} type='text' />
 
-				<br />
 				<label htmlFor='start'>開始</label>
+				<hr />
 				<input disabled={disabled} onChange={onStartChangeHandler} id='start' value={start} type='date' />
 
-				<br />
 				<label htmlFor='startTime'>開始時間</label>
+				<hr />
 				<input disabled={disabled} onChange={onStartTimeChangeHandler} id='startTime' value={startTime} type='time' />
 
-				<br />
 				<label htmlFor='end'>終了</label>
+				<hr />
 				<input disabled={disabled} onChange={onEndChangeHandler} id='end' value={end} type='date' />
 
-				<br />
 				<label htmlFor='endTime'>終了時間</label>
+				<hr />
 				<input disabled={disabled} onChange={onEndTimeChangeHandler} id='endTime' value={endTime} type='time' />
-				<br />
 
 				{message.trim().length > 0 &&
 					<h3 style={
@@ -133,7 +137,7 @@ const DateForm = ({ token }) => {
 				<br />
 				<button type='submit'>登録する</button>
 			</form>
-		</>
+		</div>
 	)
 }
 

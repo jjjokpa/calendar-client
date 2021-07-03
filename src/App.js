@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import DateForm from './components/DateForm';
 import LoginForm from './components/LoginForm';
+import './App.css'
 
 function App() {
   const [token, setToken] = useState('')
@@ -12,8 +13,8 @@ function App() {
 
   return (
     <div>
-      <LoginForm onLogin={setTokenHandler} />
-      <DateForm token={token} />
+        <LoginForm onLogin={setTokenHandler} />
+        <DateForm token={token} />
     </div>
   );
 }
