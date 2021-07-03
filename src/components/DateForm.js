@@ -8,7 +8,8 @@ const DateForm = ({ token }) => {
 	const [startTime, setStartTime] = useState('')
 	const [end, setEnd] = useState('')
 	const [endTime, setEndTime] = useState('')
-	const [color, setColor] = useState(1)
+	const [success, setSuccess] = useState(false)
+	const [message, setMessage] = useState('')
 
 	const [disabled, setDisabled] = useState(true)
 
@@ -20,7 +21,7 @@ const DateForm = ({ token }) => {
 
 	const onSubmitHandler = (e) => {
 		e.preventDefault()
-		console.log(title, address, description, start, end, color, token)
+		// console.log(title, address, description, start, end, color, token)
 
 		const data = {
 			title,
@@ -30,7 +31,7 @@ const DateForm = ({ token }) => {
 			startTime,
 			end,
 			endTime,
-			color,
+			color: 1,
 			token
 		}
 
@@ -41,6 +42,28 @@ const DateForm = ({ token }) => {
 				'Content-Type': 'application/json'
 			}, body: JSON.stringify(data)
 		})
+			.then(res => res.json())
+			.then(data => {
+				if (data.status === 200) {
+					setSuccess(true)
+					setMessage(data.message)
+				} else {
+					setSuccess(false)
+					setMessage(data.message)
+				}
+			})
+		// 	if (data.status === 200) {
+		// 		setSuccess(true)
+		// 	} else {
+		// 		setSuccess(false)
+		// 	}
+		// }).then(res => res.text())
+		// 	.then((message) => {
+		// 		setMessage(message)
+		// 	})
+		// 	.catch((err) => {
+		// 		console.log(err)
+		// 	})
 	}
 
 	const onTitleChangeHandler = (e) => {
@@ -70,9 +93,6 @@ const DateForm = ({ token }) => {
 		setEndTime(e.target.value)
 	}
 
-	const onColorChangeHandler = (e) => {
-		setColor(e.target.value)
-	}
 	return (
 		<>
 			<form onSubmit={onSubmitHandler}>
@@ -102,24 +122,13 @@ const DateForm = ({ token }) => {
 				<label htmlFor='endTime'>終了時間</label>
 				<input disabled={disabled} onChange={onEndTimeChangeHandler} id='endTime' value={endTime} type='time' />
 				<br />
-				<label htmlFor='color'>色</label>
-				<input disabled={disabled} onChange={onColorChangeHandler} id='color' value={color} type='number' />
 
-
-				{/* <input type="color" disabled={disabled} onChange={onColorChangeHandler} list="presetColors" />
-				<datalist id="presetColors">
-					<option value='1'>#7986CB</option>
-					<option value='2'>#33B679</option>
-					<option value='3'>#8E24AA</option>
-					<option value='4'>#E67C73</option>
-					<option value='5'>#F6BF26</option>
-					<option value='6'>#F4511E</option>
-					<option value='7'>#039BE5</option>
-					<option value='8'>#616161</option>
-					<option value='9'>#3F51B5</option>
-					<option value='10'>#0B8043</option>
-					<option value='11'>#D50000</option>
-				</datalist> */}
+				{message.trim().length > 0 &&
+					<h3 style={
+						success ?
+							{ color: '#0B8043', fontWeight: '400' } :
+							{ color: '#D50000', fontWeight: '400' }}>
+						{message}</h3>}
 
 				<br />
 				<button type='submit'>登録する</button>
