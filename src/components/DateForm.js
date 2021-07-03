@@ -142,9 +142,11 @@ const DateForm = ({ token }) => {
 						{message}</h3>}
 
 				<br />
-				<div className='button-section'>
-					<button className='button' type='submit'>登録する</button>
-				</div>
+				{title.trim().length > 0 &&
+					<div className='button-section'>
+						<button className='button' type='submit'>登録する</button>
+					</div>
+				}
 			</form>
 		</div>
 	)
