@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import './LoginForm.css'
+import './Header.css'
 
 const loginUrl = `${process.env.REACT_APP_SERVER_URL}/google`
-const LoginForm = ({ onLogin }) => {
+const Header = ({ onLogin }) => {
 	const [search, setSearch] = useState('')
 	const [logined, setLogined] = useState(false)
 
@@ -18,14 +18,19 @@ const LoginForm = ({ onLogin }) => {
 
 	return (
 		<>
-			{
-				!logined &&
-				<div className='login-button-section'>
-					<a className='button' href={loginUrl}>Googleにログインしてください。</a>
-				</div>
-			}
+			<ul>
+				<li><div className='title'>日程を登録</div></li>
+				<li>
+					{
+						!logined &&
+						<div className='login-button-section'>
+							<a className='login-button' href={loginUrl}>まず、Googleにログインしてください。</a>
+						</div>
+					}
+				</li>
+			</ul>
 		</>
 	)
 }
 
-export default LoginForm
+export default Header

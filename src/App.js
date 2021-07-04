@@ -1,20 +1,23 @@
 import React, { useState } from 'react'
 import DateForm from './components/DateForm';
-import LoginForm from './components/LoginForm';
+import Header from './components/Header';
 import './App.css'
 
 function App() {
   const [token, setToken] = useState('')
 
   const setTokenHandler = (new_token) => {
-    console.log('set token')
     setToken(new_token)
   }
 
   return (
-    <div>
-        <LoginForm onLogin={setTokenHandler} />
+    <div className='container'>
+      <header>
+        <Header onLogin={setTokenHandler} />
+      </header>
+      <section>
         <DateForm token={token} />
+      </section>
     </div>
   );
 }

@@ -1,0 +1,9 @@
+.message-good {
+	color: green;
+	font-weight: 600;
+}
+
+.message-fail {
+	color: red;
+	font-weight: 600;
+}
