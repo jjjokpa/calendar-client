@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import MessageOut from './MessageOut'
 import Input from '../UI/Input'
 import Button from '../UI/Button'
+import axios from 'axios'
 
-import './DateForm.css' 
+import './DateForm.css'
 
 const DateForm = ({ token }) => {
 
@@ -71,32 +72,37 @@ const DateForm = ({ token }) => {
 		setLoading(value)
 	}
 
-	const sendingData = (data) => {
+	const sendingData = async (data) => {
 
 		showLoading(true)
-		fetch(`${process.env.REACT_APP_SERVER_URL}/send-event`, {
-			method: 'POST',
-			mode: 'cors',
-			headers: {
-				'Content-Type': 'application/json'
-			}, body: JSON.stringify(data)
-		})
-			.then(res => res.json())
-			.then(data => {
-				if (data.status === 200) {
-					setSuccess(true)
-					setMessage(data.message)
-					setLoading(false)
-				} else {
-					setSuccess(false)
-					setMessage(data.message)
-					setLoading(false)
-				}
-			})
-			.catch(err => {
-				console.log(err)
-				setLoading(false)
-			})
+		setMessage('')
+
+		try {
+
+			// send request
+			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/send-event`,
+				data,
+				{ headers: { 'Content-Type': 'application/json' } }
+			)
+
+			// extract data
+			const { status, message } = response.data
+
+			// check result
+			if (status === 200) {
+				setSuccess(true)
+				setMessage(message)
+			} else {
+				setSuccess(false)
+				setMessage(message)
+			}
+
+			showLoading(false)
+
+		} catch (error) {
+			console.error(error.message)
+			showLoading(false)
+		}
 	}
 
 	const onTitleChangeHandler = (newTitle) => {
@@ -143,7 +149,7 @@ const DateForm = ({ token }) => {
 	return (
 		<div className='div-form'>
 			<form className='form vertical-center' onSubmit={onSubmitHandler}>
-				
+
 				{/* input section */}
 				{
 					inputList.map(({ type, name, label, onChange, value }) => (
@@ -154,7 +160,7 @@ const DateForm = ({ token }) => {
 
 				{/* // message section */}
 				{
-					message.trim().length > 0 &&
+					loading &&
 					<MessageOut loading={loading} success={success} message={message} />
 				}
 				<br />
