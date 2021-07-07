@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import MessageOut from './MessageOut'
+import Spinner from './Spinner'
 import Input from '../UI/Input'
 import Button from '../UI/Button'
 import axios from 'axios'
@@ -100,7 +101,15 @@ const DateForm = ({ token }) => {
 			showLoading(false)
 
 		} catch (error) {
-			console.error(error.message)
+			const { status, message } = error.response.data
+
+			if (status === 400) {
+				setSuccess(false)
+				setMessage(message)
+			} else {
+				console.error(error.message)
+			}
+
 			showLoading(false)
 		}
 	}
@@ -158,9 +167,14 @@ const DateForm = ({ token }) => {
 				}
 				<br />
 
+				{/* // loading section */}
+				{
+					loading && <Spinner />
+				}
+
 				{/* // message section */}
 				{
-					loading &&
+					message.trim().length > 0 &&
 					<MessageOut loading={loading} success={success} message={message} />
 				}
 				<br />
