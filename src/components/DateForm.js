@@ -101,14 +101,10 @@ const DateForm = ({ token }) => {
 			showLoading(false)
 
 		} catch (error) {
-			const { status, message } = error.response.data
-
-			if (status === 400) {
-				setSuccess(false)
-				setMessage(message)
-			} else {
-				console.error(error.message)
-			}
+			const { message } = error.response.data
+			setSuccess(false)
+			setMessage(message)
+			console.error(error.message)
 
 			showLoading(false)
 		}
